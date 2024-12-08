@@ -1,0 +1,336 @@
+/* Global Styles */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f4fc;
+    color: #333;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #6a0dad; /* Roxo */
+    color: white;
+}
+
+.navbar .logo h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: white;
+}
+
+.navbar .nav-links .btn {
+    margin-left: 1rem;
+    text-decoration: none;
+    color: #fff;
+    background-color: #ff8c00; /* Laranja */
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.navbar .nav-links .btn:hover {
+    background-color: #ff6500; /* Darker Orange */
+}
+
+/* Hero Section */
+.hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    background:#6a0dad;
+    text-align: center;
+    color: white;
+    padding: 2rem;
+}
+
+.hero-title {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Features Section */
+.features {
+    background-color: #f7f4fc;
+    padding: 3rem 1rem;
+    text-align: center;
+}
+
+.features .container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.feature {
+    max-width: 300px;
+    text-align: center;
+}
+
+.feature-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.feature h3 {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+}
+
+.feature p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Testimonials Section */
+.testimonials {
+    background-color: #fff;
+    padding: 3rem 1rem;
+    text-align: center;
+    color: #333;
+}
+
+.testimonials .testimonial {
+    margin-bottom: 2rem;
+}
+
+.testimonials h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #6a0dad;
+}
+
+.testimonials p {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+.testimonials h4 {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Main Call-to-action Button */
+.cta-btn {
+    display: inline-block;
+    margin-top: 2rem;
+    text-decoration: none;
+    font-size: 2rem; /* Make the button text larger */
+    color: #080000; /* Keep the text white for readability */
+    background-color:#FF5722; /* Coral color, close to orange but stands out */
+    padding: 1.5rem 3rem; /* Increase padding for a bigger button */
+    border-radius: 12px; /* Slightly rounded corners for a soft look */
+    font-weight: bold;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow for depth */
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    animation: pulse-highlight 2s infinite; /* Pulse animation for attention */
+}
+
+/* Hover Effect */
+.cta-btn:hover {
+    background-color: #ff8c66; /* Slightly lighter coral for hover */
+    transform: scale(1.15); /* Larger scaling effect on hover */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4); /* Enhance shadow on hover */
+}
+
+/* Pulse Animation */
+@keyframes pulse-highlight {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+}
+
+/* Error Message Styling */
+.error-message {
+    background-color: #ffdddd;
+    color: #d8000c;
+    border: 1px solid #d8000c;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    text-align: center;
+}
+
+/* Success Message Styling */
+.success-message {
+    background-color: #ddffdd;
+    color: #4CAF50;
+    border: 1px solid #4CAF50;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    text-align: center;
+}
+
+/* Form Container for Create Account Page */
+.form-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.form-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #4A148C; /* Purple */
+}
+
+form label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    text-align: left;
+    font-weight: bold;
+}
+
+form input,
+form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+form .btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #FF5722; /* Orange */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form .btn:hover {
+    background-color: #E64A19;
+}
+
+.error-message {
+    color: #ff0000; /* Red text color for error */
+    background-color: #ffe6e6; /* Light red background */
+    border: 1px solid #ff4d4d; /* Red border */
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+
+/* Background remains subtle and professional */
+.report-background {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #f7f4fc 0%, #ffffff 100%);
+    padding: 2rem;
+}
+
+.report-container {
+    background-color: #fff;
+    max-width: 800px;
+    width: 100%;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.report-container h2 {
+    margin-top: 0;
+    font-size: 2rem;
+    color: #4A148C; /* Deep Purple */
+    border-bottom: 2px solid #6a0dad;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* Container that holds all analysis points (boxes) */
+.analysis-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+/* Each analysis point as a "card" */
+.analysis-box {
+    background-color: #ffffff;
+    border-left: 8px solid #6a0dad; /* Purple accent line */
+    padding: 1.5rem;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.analysis-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.analysis-box p {
+    margin: 0;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Download form styling remains centered and consistent */
+.download-form {
+    text-align: center;
+}
+
+/* The .btn class is already defined; reusing it for the download button */
+.download-form .btn {
+    margin-top: 1rem;
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+    background-color: #ff8c00;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.download-form .btn:hover {
+    background-color: #ff6500;
+    transform: translateY(-2px);
+}

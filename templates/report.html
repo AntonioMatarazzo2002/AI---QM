@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Report</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <h1>Kria</h1>
+            </div>
+            <div class="nav-links">
+                <a href="{{ url_for('index') }}" class="btn">Home</a>
+                {% if session.user %}
+                    <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="btn">Login</a>
+                    <a href="{{ url_for('create_account') }}" class="btn">Create Account</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+    <main class="report-background">
+        <div class="report-container">
+            <h2>Your Analysis Report</h2>
+            <div class="analysis-container">
+                {% for line in report_text.split('\n') %}
+                    {% if line.strip() %}
+                    <div class="analysis-box">
+                        <p>{{ line }}</p>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <form action="{{ url_for('download_report') }}" method="post" class="download-form">
+                <button type="submit" class="btn">Download Report</button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

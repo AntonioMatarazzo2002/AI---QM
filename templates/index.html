@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kria - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <h1>Kria</h1>
+            </div>
+            <div class="nav-links">
+                {% if session.user %}
+                    <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="btn">Login</a>
+                    <a href="{{ url_for('create_account') }}" class="btn">Create Account</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+    <main>
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Tired of buying bad horses?</h1>
+                <p class="hero-subtitle">Test and see if the horse you want to buy is good for you</p>
+                <a href="{{ url_for('check_horse_rider_match') }}" class="cta-btn">Check Horse/Rider Match</a>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="container">
+                <div class="feature">
+                    <img src="{{ url_for('static', filename='recomend.jpg') }}" alt="Expert Matchmaking" class="feature-image">
+                    <h3>Expert Matchmaking</h3>
+                    <p>We analyze your needs and pair you with the best horse to ensure success.</p>
+                </div>
+                <div class="feature">
+                    <img src="{{ url_for('static', filename='personalized.jpg') }}" alt="Personalized Recommendations" class="feature-image">
+                    <h3>Personalized Recommendations</h3>
+                    <p>Our AI technology evaluates compatibility for unmatched performance.</p>
+                </div>
+                <div class="feature">
+                    <img src="{{ url_for('static', filename='provenresults.jpg') }}" alt="Proven Success" class="feature-image">
+                    <h3>Proven Success</h3>
+                    <p>Helping countless riders build lasting partnerships with their horses.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="testimonials">
+            <div class="container">
+                <h2>What Our Riders Say</h2>
+                <div class="testimonial">
+                    <p>"Kria helped me find the perfect horse! I couldn't be happier!"</p>
+                    <h4>- Alex Morgan</h4>
+                </div>
+                <div class="testimonial">
+                    <p>"A seamless experience with incredible results."</p>
+                    <h4>- Jamie Lee</h4>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
