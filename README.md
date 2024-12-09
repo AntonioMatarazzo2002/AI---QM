@@ -1,7 +1,7 @@
 # Kria: Horse/Rider Match Analysis Application
 
 **Author:** [Antonio Matarazzo Affonso Ferreira]  
-**Link to GitHub Repository: https://github.com/AntonioMatarazzo2002/AI---QM.git"
+**Link to GitHub Repository: https://github.com/AntonioMatarazzo2002/AI---QM.git**
 
 ## Context
 I've been a rider for the last 20 years. In the last two, I built and sold a marketplace for sports horses. With the experience, I learned that what riders lack the most is not actually options of horses to buy, but someone not interested in the negotiation (eg someone not earning any comissions) to see the horse and say if it will or will not be a good fit with the rider. This web-page does exactly that. I've made some adaptations so that you guys can understand what is happening, but the original version is in portuguese, and I'll deploy it to test my idea in some weeks. This is the initial version, translated to english
