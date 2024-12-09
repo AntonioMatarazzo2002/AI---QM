@@ -1,61 +1,51 @@
+```markdown
 # DESIGN.md
 
 ## Overview
 
-The Kria project is a Flask-based web application that analyzes horse performance data to provide riders with tailored advice. Under the hood, our focus has been on achieving a clean separation of concerns, ensuring ease of maintenance, and enabling future scalability. The application’s structure, database schema, and component interactions reflect these priorities.
+This design document provides a technical look into how Kria’s code is structured and why certain decisions were made. Kria is a local-only demonstration of a horse-rider match analysis tool originally developed in Portuguese. The English version you have here is meant to be tested and run locally, not deployed online, due to time constraints and the desire to maintain the original production environment in Portuguese.
 
-We’ve chosen a straightforward, minimal stack:  
-- **Flask**: Serves as the main framework for routing, session management, and templating.  
-- **SQLite**: Chosen for simplicity and portability for both `app.db` (users) and `novabase.db` (horses and race results).  
-- **Gunicorn + Nginx (Production)**: Recommended for reliable and secure handling of requests in a production environment.  
-- **Git LFS (if needed)**: Ensures that large `.db` files can be efficiently managed and versioned without running into GitHub’s size limitations.
+## Architectural Choices
 
-## Project Structure
+- **Flask as the Core Framework:**  
+  Flask’s simplicity and flexibility allow a clean separation of routing and logic. We keep routes in `app.py` and core logic in `helpers.py`, ensuring maintainability. This also makes adding new features or analyses straightforward.
 
-**Key Files:**
-- `app.py`: Defines routes, initializes Flask, manages sessions, handles form submissions, and generates user-oriented pages.
-- `helpers.py`: Contains business logic functions (e.g., `analyze_horse_performance`, `generate_report`, `get_horse_id_by_name`). By centralizing logic here, `app.py` remains cleaner and more focused on HTTP request/response handling.
-- `templates/`: Jinja2 HTML templates. They keep the front-end separate from the back-end logic, simplifying maintenance.
-- `static/`: Holds `styles.css` and other static assets. The CSS attempts to align with a consistent color palette that matches the Kria brand’s aesthetic and evolving logo design (colors may be updated as branding matures).
-- `requirements.txt`: Lists external dependencies (Flask, gunicorn).
-- `Procfile`: For deployment on platforms like Heroku, specifying `gunicorn` as the WSGI server.
+- **SQLite Databases:**  
+  Both `app.db` and `novabase.db` are SQLite files. This choice was made for simplicity—no external database servers are needed. This is ideal for local testing and demonstration. While platforms like Heroku offer Postgres, we are not deploying this version online, so SQLite’s out-of-the-box support in Python is sufficient.
 
-**Database Design:**
-- `app.db`: User table stores `email`, `hashed password`, `name`, `sex`, `age`, and `experience`. The schema is intentionally simple, relying on basic SQL operations. Indexes can be added if scaling requires more efficient lookups.
-- `novabase.db`: Horses and race_results tables.  
-  - **horses**: `horse_id` (PK), `animal_name` (unique).  
-  - **race_results**: references `horse_id`, stores `competitor_name` and `time_to_complete`.  
-  The data was web scraped from [sdpsistema.com](https://www.sdpsistema.com), ensuring realism. This schema allows easy queries for average times, variance in performance, and checks for patterns (like “paleteador” behavior).
+- **Real Data Integration:**  
+  The `novabase.db` file includes real horse performance data scraped from [sdpsistema.com](https://www.sdpsistema.com). This authentic data adds complexity and realism to the analysis. By using a simple SQL schema (`horses` and `race_results` tables), we can easily query average times, check consistency, and identify “paleteador” patterns.
 
-## Design Decisions
+## Logic and Structure
 
-1. **Separation of Concerns:**
-   The routing logic (in `app.py`) is kept distinct from the business logic (in `helpers.py`). This makes the code more testable and maintainable. Should we decide to add new forms of analysis (e.g., weather conditions, different competition types), we can extend `helpers.py` without cluttering the routing.
+- **app.py:**  
+  Contains Flask routes and session management. It receives user input from forms (e.g., for login, creating accounts, checking matches), calls the logic functions in `helpers.py`, and renders templates.
 
-2. **User Experience:**
-   The front end uses HTML forms and Jinja2 templates. Horse name suggestions rely on a quick AJAX-style request triggered after the user types four characters. This approach reduces friction for the user—no one wants to struggle guessing the correct horse name.
+- **helpers.py:**  
+  Houses the core business logic. Functions for analyzing horse performance, generating user profiles, and producing the final report are all here. This keeps `app.py` focused on HTTP concerns and `helpers.py` on analytics and computations.
 
-3. **Branding and Aesthetics:**
-   While we have not fully finalized the color scheme (and may adjust it as branding evolves), we’ve attempted to keep the application’s design consistent with Kria’s nascent branding. The CSS currently uses colors inspired by the future logo, but these may change after finalizing the logo design. The brand’s Instagram handle, [@kria_qm](https://www.instagram.com/kria_qm), gives an idea of our brand direction and community engagement, even though the final color palette may not be fully established.
+- **Templates and Static Files:**  
+  Templates use Jinja2 for HTML rendering. The static CSS file attempts to follow a color scheme that might match the main Kria branding in the future, though the final design is still in flux. Since the Portuguese production version is under active design refinement, we haven’t locked in the exact colors yet.
 
-4. **Scalability and Performance:**
-   For initial deployments, SQLite suffices given the project’s scope. Should the platform grow, we can migrate to a more robust RDBMS like PostgreSQL with minimal code changes, since the logic is encapsulated behind a simple SQL interface. Gunicorn handles concurrency well enough for the current scale, and pairing it with Nginx on a VPS or Heroku ensures stable, performant hosting.
+## Deployment Decisions
 
-5. **Security Considerations:**
-   Passwords are hashed using Werkzeug’s built-in hashing utilities. Session management follows Flask’s recommended best practices. Future enhancements could include adding HTTPS by default, environment variable management for secret keys, and rate limiting to improve security and resilience.
+- **Local-Only Execution:**
+  Initially, we considered platforms like Heroku or VPS deployments, but Heroku does not support SQLite without additional steps, and we are short on time to reconfigure or test a new database system. This English version remains local-only, allowing straightforward testing without dealing with cloud configurations.
 
-6. **Large File Handling:**
-   If we need to commit large `.db` files or other assets, we rely on Git LFS. This keeps the repository manageable and prevents hitting GitHub’s file-size cap. It also sets us up well for maintaining a historical record of performance data without clogging the main repo history.
+- **No Online Version for the English Build:**
+  The original version is in Portuguese, aligned with our brand and target audience. We present this English version to demonstrate functionality only. Without the constraints of adapting the database or re-deploying under time pressure, the local environment suffices.
 
-## Future Directions
+## Future Considerations
 
-- **Refined Branding and Styling:**
-  As the Kria brand and logo mature, we will align CSS and templates more closely with the finalized color schemes and design guidelines. Current colors are placeholders that match an early version of the logo and our Instagram presence (check and like it if you can! @kria_qm).
+- **Branding and Color Scheme:**
+  The CSS and color palette are placeholders. We have an Instagram presence (@kria_qm) that hints at future brand directions, but as of now, we’ve not finalized the visual identity. Once the brand colors and logo are set, we can update the CSS to match them more closely.
 
-- **Additional Data Points:**
-  Future versions might integrate more metrics—like weather or competition type—into `novabase.db`. This could necessitate schema changes and new analysis functions in `helpers.py`.
+- **Scalability and Database Upgrades:**
+  If we were to deploy this English version online or scale up, we’d likely migrate from SQLite to a more robust database like PostgreSQL and adjust the code accordingly. For now, the simplicity of SQLite suits local demos.
 
-- **Enhanced User Profiles and Recommendations:**
-  With more data, we could offer personalized suggestions, track user history, or integrate a recommendation engine. The current design can evolve by adding new tables (e.g., `user_horse_matches`) and caching aggregate results.
+- **Additional Features:**
+  Future iterations might integrate more metrics or improve performance analysis. The current modular design makes it easy to add new columns in `novabase.db` or more logic in `helpers.py`.
 
-In summary, the design decisions center on keeping the code clean, maintainable, and scalable. We’ve chosen simple tools, consistent logic separation, and a forward-compatible architecture. The brand and design aesthetics will continue to evolve, but the technical foundation is laid for easy adaptation as Kria grows, refining its identity and features to better serve users.
+## Conclusion
+
+The Kria application’s design prioritizes clarity, maintainability, and ease of local demonstration. By using simple tools (Flask, SQLite) and keeping logic separated from routing, we ensure that anyone exploring the code can easily understand how it works and how to adapt it in the future. The offline, English-only version provided here is a technical demonstration, reflecting our design philosophy without the complexities of a full production deployment.
