@@ -43,9 +43,49 @@ No complex database setup is required. Both user (`app.db`) and horse (`novabase
 
 ## Running the Application Locally
 
-Since we are not deploying this English version online, follow these steps to run it on your local machine:
+# Application Setup Script
 
-1. **Clone the Repository:**
-   ```bash
-   git clone https://github.com/yourusername/kria.git
-   cd kria
+# 1. Set Up a Virtual Environment
+python3 -m venv venv
+source venv/bin/activate
+
+# 2. Install Requirements
+pip install -r requirements.txt
+
+# 3. Run the Application
+python3 app.py
+
+# 4. Optional: Simulate Production Environment with Gunicorn
+# Gunicorn will run the app with 3 worker processes and bind to port 8000
+gunicorn -w 3 -b 0.0.0.0:8000 app:app
+
+# Notes: The application will start on http://127.0.0.1:8000. Visit this URL in your web browser to access the application.
+
+# ================================================================
+# Application Usage Instructions
+# ================================================================
+
+# 1. Create an Account
+# Access the URL: /create-account
+# Enter your details and submit the form to create your account.
+
+# 2. Login
+# Go to the URL: /login
+# Enter your registered credentials to log in.
+
+# 3. Horse-Rider Match
+# Access the URL: /check-horse-rider-match
+# Type at least four letters of a horse's name to receive suggestions.
+# Select your desired time and rider type, then submit to see the analysis.
+
+# 4. Report View and Download
+# After analysis, access the URL: /report
+# View the results of the analysis or download a text version of the report if needed.
+
+# ================================================================
+# Notes on Localization and Design
+# ================================================================
+
+# - This version of the application is kept offline and in English for demonstration purposes only.
+# - The main production version of the application is in Portuguese.
+# - Branding and CSS design elements are still undergoing refinement for the production release.
