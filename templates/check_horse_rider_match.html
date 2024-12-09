@@ -4,15 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kria - Check Horse/Rider Match</title>
+    <!-- Link to the external CSS stylesheet -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    <!-- Header section with navigation bar -->
     <header>
         <div class="navbar">
             <div class="logo">
                 <h1>Kria</h1>
             </div>
             <div class="nav-links">
+                <!-- Navigation links: dynamically show based on user session -->
                 <a href="{{ url_for('index') }}" class="btn">Home</a>
                 {% if session.user %}
                     <a href="{{ url_for('logout') }}" class="btn">Logout</a>
@@ -27,20 +30,25 @@
         <div class="form-container">
             <h2>Check Horse/Rider Match</h2>
             <form action="/check-horse-rider-match" method="post">
+                <!-- Input for horse name -->
                 <label for="horse-name">Name of the Horse:</label>
                 <input type="text" id="horse-name" name="horse-name" pattern="[A-Za-z0-9\s]+" title="Only letters, numbers, and spaces are allowed" required list="horse-suggestions">
+                <!-- Datalist for autocomplete suggestions -->
                 <datalist id="horse-suggestions"></datalist>
-                
+                               
+                <!-- Input for desired time -->
                 <label for="desired-time">What is the time you want to achieve with the new horse? (in seconds):</label>
                 <input type="number" id="desired-time" name="desired-time" min="0" step="any" required>
-                
+
+                <!-- Dropdown for rider type -->
                 <label for="rider-type">Are you a:</label>
                 <select id="rider-type" name="rider-type" required>
                     <option value="" disabled selected>Select one</option>
                     <option value="amateur">Amateur</option>
                     <option value="professional">Professional</option>
                 </select>
-                
+
+                <!-- Submit button -->
                 <button type="submit" class="btn">Check Match</button>
             </form>
         </div>
@@ -49,10 +57,12 @@
 </html>
 
 <script>
+    // Get references to input and datalist elements
     const horseNameInput = document.getElementById('horse-name');
     const suggestionsList = document.getElementById('horse-suggestions');
     let timeoutId = null;
-  
+
+    // Event listener for user input in the horse name field
     horseNameInput.addEventListener('input', function() {
       const query = this.value.trim();
   
