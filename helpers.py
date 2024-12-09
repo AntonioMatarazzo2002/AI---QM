@@ -5,11 +5,6 @@ from werkzeug.security import check_password_hash
 import statistics
 from collections import defaultdict
 
-
-
-
-
-
 # check to see if the user information is correct and can be send to our database
 def validate_user_data(email, password, name, sex, age, experience):
     if not email or not password or not name or not sex or not age or not experience:
@@ -27,10 +22,6 @@ def validate_user_data(email, password, name, sex, age, experience):
         return "Password must be at least 6 characters long."
     return None
 
-
-
-
-
 # insert the user information in to our database
 def insert_user(email, password, name, sex, age, experience):
     try:
@@ -47,37 +38,25 @@ def insert_user(email, password, name, sex, age, experience):
         conn.close()
     return None
 
-
-
-
-
 # check to see if the user information is in our database
 def validate_login_credentials(email, password):
     try:
         conn = sqlite3.connect("app.db")
         cursor = conn.cursor()
-        
         # Check if the user exists in the database
         cursor.execute("SELECT password FROM users WHERE email = ?", (email,))
         result = cursor.fetchone()
-        
         if not result:
             return "Invalid email or user does not exist."
-        
         # Check if the provided password matches the hashed password
         stored_password = result[0]
         if not check_password_hash(stored_password, password):
             return "Incorrect password. Please try again."
-        
         conn.close()
         return None  # No errors
     except Exception as e:
         return f"An error occurred: {str(e)}"
     
-
-
-
-
 #get the user info using his email
 def get_user_info_by_email(email):
     conn = sqlite3.connect("app.db")
@@ -106,7 +85,6 @@ def get_horse_id_by_name(horse_name):
         return row[0]
     return None
 
-
 #get the time and the competitors to analyze the horse
 def get_times_and_competitors_for_horse(horse_id):
     conn = sqlite3.connect("novabase.db")
@@ -115,15 +93,11 @@ def get_times_and_competitors_for_horse(horse_id):
     cursor.execute("SELECT time_to_complete, competitor_name FROM race_results WHERE horse_id = ?", (horse_id,))
     rows = cursor.fetchall()
     conn.close()
-
     # Separte in to two lists
     times = [row[0] for row in rows]          # all times
     competitors = [row[1] for row in rows]    # corresponding competitors
 
     return times, competitors
-
-
-
 
 #gets the information from the user and decides which type of rider he is
 def classify_user_profile(experience, rider_type):
@@ -143,10 +117,6 @@ def classify_user_profile(experience, rider_type):
         else:
             return "avancada"
         
-
-
-
-
 #complete logic of the horse analysis
 def analyze_horse_performance(times, competitors):
     """
@@ -154,7 +124,6 @@ def analyze_horse_performance(times, competitors):
     competitors: list of the same length as times, indicating the name of the competitor in each race
     """
     data_warning = None 
-    
     if not times:
         return {
             "constant": False,
@@ -163,10 +132,8 @@ def analyze_horse_performance(times, competitors):
             "average_time": None,
             "data_warning": "No race times available."
         }
-
     # filter non-zero times for some analysis
     non_zero_times = [t for t in times if t > 0]
-    
     # Overall consistency: use standard deviation
     # We consider it consistent if std_dev < 10% of the average, for example.
     if len(non_zero_times) > 1:
@@ -188,7 +155,7 @@ def analyze_horse_performance(times, competitors):
     for t, comp in zip(times, competitors):
         if t > 0:
             times_by_competitor[comp].append(t)
-    
+            
     if len(times_by_competitor) > 1:
         competitor_avgs = []
         for comp, comp_times in times_by_competitor.items():
@@ -201,13 +168,12 @@ def analyze_horse_performance(times, competitors):
         # Only one competitor or none – it’s not possible to determine if it’s consistent with multiple riders.
         constant_with_various_competitors = False
 
-# Detect if the horse is a "paleteador":
+# Detect if the horse is a "paleteador", a bad characteristic for amateurs, it means that the horse faals a lot
 # Criteria:
 # - Are there zeroed times (> 2)?
 # - Is there a cluster around x and another around x+5?
 # To simplify, find the smallest non-zero time (x) and check if there is a cluster around (x+5).
 # A "cluster" can be determined if there is a significant number of times between (x+4.5 and x+5.5).
-    
     zero_count = sum(1 for t in times if t == 0)
     paleteador = False
     if zero_count > 2 and non_zero_times:
@@ -216,12 +182,10 @@ def analyze_horse_performance(times, competitors):
         # If there is a cluster of times around min_time+5 and we also have zeroed times, we consider the horse a "paleteador."
         if len(cluster_5) > 0:
             paleteador = True
-
     if len(non_zero_times) <= 2:
         data_warning = "Insufficient race data for reliable analysis."
     elif len(times_by_competitor) <= 1:
         data_warning = "Insufficient competitor diversity for reliable analysis."
-    
     # Average time (ignoring zeros) is already calculated: it is avg.    
     return {
         "constant": constant,
