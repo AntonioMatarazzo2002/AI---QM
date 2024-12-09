@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- The first part of this page is just like the other ones. Comments on the main part and beyond -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,9 +25,12 @@
         </div>
     </header>
     <main class="report-background">
+        <!-- Container for the report content -->
         <div class="report-container">
             <h2>Your Analysis Report</h2>
+            <!-- Display analysis content -->
             <div class="analysis-container">
+                <!-- Loop through lines of the report text and display each as a separate box -->
                 {% for line in report_text.split('\n') %}
                     {% if line.strip() %}
                     <div class="analysis-box">
@@ -35,6 +39,7 @@
                     {% endif %}
                 {% endfor %}
             </div>
+            <!-- Form to download the report -->
             <form action="{{ url_for('download_report') }}" method="post" class="download-form">
                 <button type="submit" class="btn">Download Report</button>
             </form>
