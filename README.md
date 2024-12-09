@@ -1,7 +1,6 @@
 # Kria: Horse/Rider Match Analysis Application
 
 **Author:** [Antonio Matarazzo Affonso Ferreira]  
-**Domain:** (https://foal-future.com)(https://foal-future.com) or use (https://webhorse-85dcffe88126.herokuapp.com/) Note: The domain name “foal-future.com” is from an older idea. The current project is called “Kria”, and I plan to purchase a domain that matches the company name in the future; if the "foal-future" domain is not working, it is due to the 48h delay to the DNS to connect. You can use the other link (it comes directly from heroku)
 
 ## Context
 I've been a rider for the last 20 years. In the last two, I built and sold a marketplace for sports horses. With the experience, I learned that what riders lack the most is not actually options of horses to buy, but someone not interested in the negotiation (eg someone not earning any comissions) to see the horse and say if it will or will not be a good fit with the rider. This web-page does exactly that. I've made some adaptations so that you guys can understand what is happening, but the original version is in portuguese, and I'll deploy it to test my idea in some weeks. This is the initial version, translated to english
@@ -16,56 +15,37 @@ The `novabase.db` file contains real performance data for horses, which was coll
 
 ## Features
 
-1. **User Accounts and Authentication:**  
-   Users must create an account and log in to access the horse-rider match analysis. The application securely stores hashed passwords in a SQLite database (`app.db`).
+- **User Accounts and Authentication:**  
+  Users can create an account and log in. User data is stored securely in a local SQLite database (`app.db`).
+  
+- **Rider Profile Classification:**  
+  The application classifies riders as Beginner (Iniciante), Intermediate (Intermediaria), Advanced (Avancada), or Professional (Profissional), tailoring advice accordingly.
+  
+- **Horse Performance Analysis:**  
+  Analyzes horse performance data (from `novabase.db`), checking for consistency, adaptability, the presence of “paleteador” behavior, and comparing average times against the user’s desired time.
+  
+- **Real-World Data:**  
+  The `novabase.db` file contains performance data scraped from [sdpsistema.com](https://www.sdpsistema.com), adding authenticity to the analysis.
 
-2. **Rider Profile Classification:**  
-   Riders are classified into four categories based on their experience level and status (amateur or professional):  
-   - Iniciante (Beginner)  
-   - Intermediaria (Intermediate)  
-   - Avancada (Advanced)  
-   - Profissional (Professional)
-
-   This classification tailors the advice to the user’s experience. Beginners receive supportive guidance, while advanced riders get straightforward data.
-
-3. **Horse Performance Analysis:**  
-   Each horse in the `novabase.db` database (scraped from sgpsistema.com) has historical performance entries:
-   - **Constancy:** Checks if the horse’s performance (run times) is stable and predictable.
-   - **Adaptability to Different Competitors:** Evaluates if the horse’s consistency holds under various riders.
-   - **Paleteador Check:** Determines if the horse frequently knocks barrels or incurs technical penalties.
-   - **Average Time vs. Desired Time:** Compares the horse’s average run time to the user’s goal, advising if training or adjustments might be needed.
-
-4. **Detailed, Contextual Feedback:**  
-   The application generates a comprehensive report based on the user’s profile and the horse’s metrics. Beginners see detailed explanations of each finding, while advanced riders get a more concise report trusting their ability to interpret the data.
-
-5. **Horse Name Suggestions:**  
-   To prevent typos or invalid names, as soon as the user types four letters of a horse’s name, the app queries `novabase.db` and suggests valid horse names. This improves user experience by guiding them toward correct inputs.
+- **Horse Name Suggestions:**  
+  As the user types a horse’s name, suggestions are provided once four letters are typed, guiding the user toward valid horse entries.
 
 ## Requirements
 
 - **Runtime Environment:**  
-  Python 3.10 or above recommended.
+  - Python 3.10 or higher recommended.
   
-- **Core Dependencies:**
-  - Flask==2.3.2  
-  - gunicorn==20.1.0
+- **Dependencies:**
+  - Flask==2.3.2
+  - gunicorn==20.1.0 (I'm currently trying to deploy it in portugues on heroku, thats why this prerequisite is here and thast why the "Procfile" exists as well)
 
-- **Database Files:**
-  - `app.db` for user accounts.
-  - `novabase.db` for horse data (collected from sdpsistema.com).
+No complex database setup is required. Both user (`app.db`) and horse (`novabase.db`) databases are SQLite files, which are supported natively by Python’s standard library.
 
-Ensure `requirements.txt` is up to date and includes both Flask and Gunicorn. SQLite is part of Python’s standard library, so no extra installation is needed for database functionality.
+## Running the Application Locally
 
-## Database Configuration
-- app.db: Created automatically when users register. It stores user credentials and profile info.
-- novabase.db: Contains scraped real-world performance data from sdpsistema.com, including horses and race_results. The horses table links animal_name to horse_id, and race_results provides time_to_complete and competitor_name
+Since we are not deploying this English version online, follow these steps to run it on your local machine:
 
-## Using the Application
-Create an Account: Visit /create-account, fill out the form (email, password, name, sex, age, experience), and submit.
-
-Login: Go to /login, enter your credentials.
-
-Check Horse-Rider Match: On /check-horse-rider-match, begin typing a horse’s name. After four characters, suggestions appear based on novabase.db data.
-Enter your desired time and select your rider type (amateur or professional). Submit to receive a detailed report.
-
-View and Download Report: After analysis, /report displays the results. A download option lets you save a text version of the report.
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/yourusername/kria.git
+   cd kria
