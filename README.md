@@ -55,3 +55,17 @@ The `novabase.db` file contains real performance data for horses, which was coll
   - `novabase.db` for horse data (collected from sdpsistema.com).
 
 Ensure `requirements.txt` is up to date and includes both Flask and Gunicorn. SQLite is part of Python’s standard library, so no extra installation is needed for database functionality.
+
+-**Database Configuration:**
+- app.db: Created automatically when users register. It stores user credentials and profile info.
+- novabase.db: Contains scraped real-world performance data from sdpsistema.com, including horses and race_results. The horses table links animal_name to horse_id, and race_results provides time_to_complete and competitor_name
+
+-**Using the Application**
+Create an Account: Visit /create-account, fill out the form (email, password, name, sex, age, experience), and submit.
+
+Login: Go to /login, enter your credentials.
+
+Check Horse-Rider Match: On /check-horse-rider-match, begin typing a horse’s name. After four characters, suggestions appear based on novabase.db data.
+Enter your desired time and select your rider type (amateur or professional). Submit to receive a detailed report.
+
+View and Download Report: After analysis, /report displays the results. A download option lets you save a text version of the report.
