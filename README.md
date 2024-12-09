@@ -1,3 +1,7 @@
+#WARNING: the "novabase.db" file is not sumitted in gradescope because it is too big. You can acess it in our repository online with the link here
+
+
+
 # Kria: Horse/Rider Match Analysis Application
 
 **Author:** [Antonio Matarazzo Affonso Ferreira]  
