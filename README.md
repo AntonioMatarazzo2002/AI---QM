@@ -56,11 +56,11 @@ The `novabase.db` file contains real performance data for horses, which was coll
 
 Ensure `requirements.txt` is up to date and includes both Flask and Gunicorn. SQLite is part of Python’s standard library, so no extra installation is needed for database functionality.
 
--**Database Configuration:**
+## Database Configuration
 - app.db: Created automatically when users register. It stores user credentials and profile info.
 - novabase.db: Contains scraped real-world performance data from sdpsistema.com, including horses and race_results. The horses table links animal_name to horse_id, and race_results provides time_to_complete and competitor_name
 
--**Using the Application**
+## Using the Application
 Create an Account: Visit /create-account, fill out the form (email, password, name, sex, age, experience), and submit.
 
 Login: Go to /login, enter your credentials.
