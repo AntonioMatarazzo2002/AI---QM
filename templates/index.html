@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kria - Home</title>
+    <meta charset="UTF-8"> <!-- Specifies character encoding for the document -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ensures the page is mobile-friendly -->
+    <title>Kria - Home</title> <!-- Page title -->
+    <!-- Link to external CSS stylesheet -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    <!-- Header section with navigation bar -->
     <header>
         <div class="navbar">
             <div class="logo">
                 <h1>Kria</h1>
             </div>
             <div class="nav-links">
+                <!-- Navigation links dynamically rendered based on user session -->
                 {% if session.user %}
                     <a href="{{ url_for('logout') }}" class="btn">Logout</a>
                 {% else %}
@@ -23,7 +26,7 @@
         </div>
     </header>
     <main>
-        <!-- Hero Section -->
+        <!-- Hero Section: Introductory section with a call-to-action -->
         <div class="hero">
             <div class="hero-content">
                 <h1 class="hero-title">Tired of buying bad horses?</h1>
@@ -32,7 +35,7 @@
             </div>
         </div>
 
-        <!-- Features Section -->
+        <!-- Features Section: Highlights the key features of the application -->
         <section class="features">
             <div class="container">
                 <div class="feature">
@@ -53,7 +56,7 @@
             </div>
         </section>
 
-        <!-- Testimonials Section -->
+        <!-- Testimonials Section: Display user testimonials -->
         <section class="testimonials">
             <div class="container">
                 <h2>What Our Riders Say</h2>
